@@ -1,0 +1,26 @@
+# Dependencies
+node_modules
+dist
+coverage
+.turbo
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Prisma
+/generated
+
+# Logs
+*.log
+npm-debug.log*
+
+# OS / IDE
+.DS_Store
+.idea
+.vscode
+*.swp
+
+# Test
+/test-results

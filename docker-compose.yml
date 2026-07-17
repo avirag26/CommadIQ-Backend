@@ -1,0 +1,56 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: commandiq-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: commandiq
+      POSTGRES_PASSWORD: commandiq
+      POSTGRES_DB: commandiq
+    ports:
+      - '5434:5432'
+    volumes:
+      - commandiq_pg_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U commandiq -d commandiq']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    container_name: commandiq-redis
+    restart: unless-stopped
+    ports:
+      - '6380:6379'
+    volumes:
+      - commandiq_redis_data:/data
+    healthcheck:
+      test: ['CMD', 'redis-cli', 'ping']
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: commandiq-api
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    env_file:
+      - .env
+    environment:
+      DATABASE_URL: postgresql://commandiq:commandiq@postgres:5432/commandiq?schema=public
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+    ports:
+      - '3100:3000'
+
+volumes:
+  commandiq_pg_data:
+  commandiq_redis_data:

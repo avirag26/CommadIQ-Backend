@@ -6,7 +6,7 @@ import { UserEntity } from '../entities/user.entity';
 
 @Injectable()
 export class UserRepository {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(private readonly prisma: PrismaService) { }
 
   create(data: CreateUserInternalDto): Promise<UserEntity> {
     return this.prisma.user.create({
@@ -33,6 +33,7 @@ export class UserRepository {
       data: {
         firstName: data.firstName,
         lastName: data.lastName,
+        avatarUrl: data.avatarUrl,
       },
     });
   }

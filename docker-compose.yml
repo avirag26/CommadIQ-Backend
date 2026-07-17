@@ -49,7 +49,7 @@ services:
       REDIS_HOST: redis
       REDIS_PORT: 6379
     ports:
-      - '3100:3000'
+      - '3100:3100'
 
 volumes:
   commandiq_pg_data:

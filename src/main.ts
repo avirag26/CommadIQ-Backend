@@ -3,6 +3,7 @@ import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import helmet from 'helmet';
+import cookieParser from 'cookie-parser';
 import { Logger } from 'nestjs-pino';
 import { AppModule } from './app.module';
 import { APP_CONSTANTS } from './common/constants/app.constants';
@@ -17,6 +18,7 @@ async function bootstrap(): Promise<void> {
 
   app.useLogger(logger);
   app.use(helmet());
+  app.use(cookieParser());
   app.setGlobalPrefix(APP_CONSTANTS.API_PREFIX);
 
   app.enableCors({

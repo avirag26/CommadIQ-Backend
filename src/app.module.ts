@@ -22,6 +22,7 @@ import { OrganizationsModule } from './modules/organizations/organizations.modul
 import { ReportsModule } from './modules/reports/reports.module';
 import { UsersModule } from './modules/users/users.module';
 import { WebsitesModule } from './modules/websites/websites.module';
+import { StorageModule } from './modules/storage/storage.module';
 
 @Module({
   imports: [
@@ -83,6 +84,7 @@ import { WebsitesModule } from './modules/websites/websites.module';
     NotificationsModule,
     AiModule,
     HealthModule,
+    StorageModule,
   ],
   providers: [
     {

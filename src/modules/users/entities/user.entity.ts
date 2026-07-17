@@ -4,6 +4,7 @@ export interface UserEntity {
   passwordHash: string;
   firstName: string;
   lastName: string;
+  avatarUrl?: string | null;
   isActive: boolean;
   createdAt: Date;
   updatedAt: Date;
